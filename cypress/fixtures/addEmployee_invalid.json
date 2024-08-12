@@ -1,0 +1,120 @@
+[
+{
+  "case" : "negative depandants",
+  "firstName" : "FN",
+  "lastName" : "LN",
+  "dependant" : -1,
+  "statusCode" :  400,
+  "memberNames" : "Dependants",
+  "errorMessage" : "The field Dependants must be between 0 and 32."
+},
+{
+  "case" : "alpha-numeric in dependant",
+  "firstName" : "FN1",
+  "lastName" : "LN1",
+  "dependant" : "w",
+  "statusCode" :  400,
+  "memberNames" : "Dependants",
+  "errorMessage" : "The field Dependants must be between 0 and 32."
+},
+{
+  "case" : "numeric values in first name",
+  "firstName" : "22",
+  "lastName" : "LN",
+  "dependant" : 2,
+  "statusCode" :  400,
+  "memberNames" : "FirstName",
+  "errorMessage" : "The field FirstName must be alphabet"
+},
+{
+  "case" : "numeric values in last name",
+  "firstName" : "FN",
+  "lastName" : "22",
+  "dependant" : 2,
+  "statusCode" :  400,
+  "memberNames" : "LastName",
+  "errorMessage" : "The field LastName must be alphabet"
+},
+{
+  "case" : "First Name empty",
+  "firstName" : "",
+  "lastName" : "LN",
+  "dependant" : 1,
+  "statusCode" :  400,
+  "memberNames" : "FirstName",
+  "errorMessage" : "The FirstName field is required."
+},
+{
+  "case" : "Last Name empty",
+  "firstName" : "FN",
+  "lastName" : "",
+  "dependant" : 1,
+  "statusCode" :  400,
+  "memberNames" : "LastName",
+  "errorMessage" : "The LastName field is required."
+},
+{
+  "case" : "Dependent null",
+  "firstName" : "FN",
+  "lastName" : "FN",
+  "dependant" : null,
+  "statusCode" :  400,
+  "memberNames" : "Dependants",
+  "errorMessage" : "The Dependants field is required."
+},
+{
+  "case" : "First Name null",
+  "firstName" : null,
+  "lastName" : "LN",
+  "dependant" : 1,
+  "statusCode" :  400,
+  "memberNames" : "FirstName",
+  "errorMessage" : "The FirstName field is required."
+},
+{
+  "case" : "Last Name null",
+  "firstName" : "FN",
+  "lastName" : null,
+  "dependant" : 1,
+  "statusCode" :  400,
+  "memberNames" : "LastName",
+  "errorMessage" : "The LastName field is required."
+},
+{
+  "case" : "Adding Duplicate Employee",
+  "firstName" : "FN4",
+  "lastName" : "LN4",
+  "dependant" : 4,
+  "statusCode" :  500,
+  "memberNames" : "Name",
+  "errorMessage" : "Member already exsist"
+},
+{
+  "case" : "Long First Name",
+  "firstName" : "FNeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeerrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
+  "lastName" : "LN4",
+  "dependant" : 4,
+  "statusCode" :  400,
+  "memberNames" : "FirstName",
+  "errorMessage" : "The field FirstName must be a string with a maximum length of 50."
+},
+{
+  "case" : "Long Last Name",
+  "firstName" : "FN4",
+  "lastName" : "FNeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeerrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
+  "dependant" : 4,
+  "statusCode" :  400,
+  "memberNames" : "LastName",
+  "errorMessage" : "The field LastName must be a string with a maximum length of 50."
+},
+{
+  "case" : "More than 33 depandants",
+  "firstName" : "FN33",
+  "lastName" : "LN33",
+  "dependant" : 33,
+  "statusCode" :  400,
+  "memberNames" : "Dependants",
+  "errorMessage" : "The field Dependants must be between 0 and 32."
+}
+
+]

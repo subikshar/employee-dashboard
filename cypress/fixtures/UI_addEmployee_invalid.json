@@ -1,0 +1,120 @@
+[
+  {
+  "case" : "negative depandants",
+  "username" : "TestUser413",
+  "passWord" : "C/^41uU@iSJp",
+  "firstName" : "FN",
+  "lastName" : "LN",
+  "dependant" : -1,
+  "errorMessage" :  "The field Dependants must be between 0 and 32."
+},
+{
+  "case" : "alpha-numeric in dependant",
+  "username" : "TestUser413",
+  "passWord" : "C/^41uU@iSJp",
+  "firstName" : "FN1",
+  "lastName" : "LN1",
+  "dependant" : "w",
+  "errorMessage" : "The field Dependants must be between 0 and 32."
+},
+{
+  "case" : "numeric values in first name",
+  "username" : "TestUser413",
+  "passWord" : "C/^41uU@iSJp",
+  "firstName" : "22",
+  "lastName" : "LN",
+  "dependant" : 2,
+  "errorMessage" : "The field FirstName must be alphabet"
+},
+{
+  "case" : "numeric values in last name",
+  "username" : "TestUser413",
+  "passWord" : "C/^41uU@iSJp",
+  "firstName" : "FN",
+  "lastName" : "22",
+  "dependant" : 2,
+  "errorMessage" : "The field LastName must be alphabet"
+},
+{
+"case" : "First Name empty",
+"username" : "TestUser413",
+"passWord" : "C/^41uU@iSJp",
+"firstName" : "",
+"lastName" : "LN",
+"dependant" : 1,
+"errorMessage" : "The FirstName field is required."
+},
+{
+"case" : "Last Name empty",
+"username" : "TestUser413",
+"passWord" : "C/^41uU@iSJp",
+"firstName" : "FN",
+"lastName" : "",
+"dependant" : 1,
+"errorMessage" : "The LastName field is required."
+},
+{
+"case" : "Dependent null",
+"username" : "TestUser413",
+"passWord" : "C/^41uU@iSJp",
+"firstName" : "FN",
+"lastName" : "FN",
+"dependant" : null,
+"errorMessage" : "The Dependants field is required."
+},
+{
+"case" : "First Name null",
+"username" : "TestUser413",
+"passWord" : "C/^41uU@iSJp",
+"firstName" : null,
+"lastName" : "LN",
+"dependant" : 1,
+"errorMessage" : "The FirstName field is required."
+},
+{
+"case" : "Last Name null",
+"username" : "TestUser413",
+"passWord" : "C/^41uU@iSJp",
+"firstName" : null,
+"lastName" : "",
+"dependant" : 1,
+"errorMessage" : "The LastName field is required."
+},
+{
+"case" : "Adding Duplicate Employee",
+"username" : "TestUser413",
+"passWord" : "C/^41uU@iSJp",
+"firstName" : "FN4",
+"lastName" : "LN4",
+"dependant" : 4,
+"errorMessage" : "Member already exsist"
+},
+{
+"case" : "Long First Name",
+"username" : "TestUser413",
+"passWord" : "C/^41uU@iSJp",
+"firstName" : "FNeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeerrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
+"lastName" : "LN4",
+"dependant" : 4,
+"errorMessage" : "The field FirstName must be a string with a maximum length of 50."
+},
+{
+"case" : "Long Last Name",
+"username" : "TestUser413",
+"passWord" : "C/^41uU@iSJp",
+"firstName" : "FN4",
+"lastName" : "FNeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeerrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
+"dependant" : 4,
+"errorMessage" : "The field LastName must be a string with a maximum length of 50."
+},
+{
+"case" : "More than 33 depandants",
+"username" : "TestUser413",
+"passWord" : "C/^41uU@iSJp",
+"firstName" : "FN33",
+"lastName" : "LN33",
+"dependant" : 33,
+"errorMessage" : "The field Dependants must be between 0 and 32."
+}
+
+]

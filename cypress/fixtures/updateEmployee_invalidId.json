@@ -1,0 +1,56 @@
+[
+{
+  "case" : "Empty id",
+  "id":"",
+  "firstName" : "FN1",
+  "lastName" : "LN1",
+  "dependant" : 1,
+  "newFN":"FN1",
+  "newLN":"LN1",
+  "newDependant": 1,
+  "statusCode" :  400,
+  "memberNames" : "id",
+  "errorMessage" : "The id field is required."
+  
+},
+{
+  "case" : "null id",
+  "id":null,
+  "firstName" : "FN1",
+  "lastName" : "LN1",
+  "dependant" : 1,
+  "newFN":"FN1",
+  "newLN":"LN1",
+  "newDependant": 1,
+  "statusCode" :  400,
+  "memberNames" : "id",
+  "errorMessage" : "The id field is required."
+},
+{
+  "case" : "update with id# that does not exsist",
+  "id":"0c2de7cd-f22f-4c32-a5f6-b4c0ec32bde1",
+  "firstName" : "FN1",
+  "lastName" : "LN1",
+  "dependant" : 1,
+  "newFN":"FN1",
+  "newLN":"LN1",
+  "newDependant": 1,
+  "statusCode" :  400,
+  "memberNames" : "id",
+  "errorMessage" : "The id field is invalid."
+},
+{
+  "case" : "invalid id",
+  "id":"0c2de7cd-f22f-4c32-a5f6-b4c0ec32bd",
+  "firstName" : "FN1",
+  "lastName" : "LN1",
+  "dependant" : 1,
+  "newFN":"FN1",
+  "newLN":"LN1",
+  "newDependant": 1,
+  "statusCode" :  400,
+  "memberNames" : "id",
+  "errorMessage" : "The id field is invalid."
+}
+
+]

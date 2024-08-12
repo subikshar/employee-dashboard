@@ -1,0 +1,101 @@
+[
+{
+  "case" : "No depandants",
+  "firstName" : "FN",
+  "lastName" : "LN",
+  "dependant" : 0,
+  "username" : "TestUser413",
+  "id":"",
+  "salary": 52000,
+  "gross": 2000,
+  "benefitsCost": 38.46,
+  "net": 1961.54
+},
+{
+  "case" : "1 depandants",
+  "firstName" : "FN1",
+  "lastName" : "LN1",
+  "dependant" : 1,
+  "username" : "TestUser413",
+  "id":"",
+  "salary": 52000,
+  "gross": 2000,
+  "benefitsCost": 57.69,
+  "net": 1942.31
+},
+{
+  "case" : "2 depandants",
+  "firstName" : "FN2",
+  "lastName" : "LN2",
+  "dependant" : 2,
+  "username" : "TestUser413",
+  "id":"",
+  "salary": 52000,
+  "gross": 2000,
+  "benefitsCost": 76.92,
+  "net": 1923.08
+},
+{
+  "case" : "3 depandants",
+  "firstName" : "FN",
+  "lastName" : "LN",
+  "dependant" : 3,
+  "username" : "TestUser413",
+  "id":"",
+  "salary": 52000,
+  "gross": 2000,
+  "benefitsCost": 96.15,
+  "net": 1903.85
+},
+{
+  "case" : "4 depandants",
+  "firstName" : "FN4",
+  "lastName" : "LN4",
+  "dependant" : 4,
+  "username" : "TestUser413",
+  "id":"",
+  "salary": 52000,
+  "gross": 2000,
+  "benefitsCost": 115.38,
+  "net": 1884.62
+},
+{
+  "case" : "Edge case depandants(32)",
+  "firstName" : "FN32",
+  "lastName" : "LN32",
+  "dependant" : 32,
+  "username" : "TestUser413",
+  "id":"",
+  "salary": 52000,
+  "gross": 2000,
+  "benefitsCost": 653.85,
+  "net": 1346.15
+},
+{
+  "case" : "Same First Name and Different Last Name",
+  "firstName" : "FN4",
+  "lastName" : "Last",
+  "dependant" : 4,
+  "username" : "TestUser413",
+  "id":"",
+  "salary": 52000,
+  "gross": 2000,
+  "benefitsCost": 115.38,
+  "net": 1884.62
+},
+{
+  "case" : "Different First Name and Same Last Name",
+  "firstName" : "First",
+  "lastName" : "LN4",
+  "dependant" : 4,
+  "username" : "TestUser413",
+  "id":"",
+  "salary": 52000,
+  "gross": 2000,
+  "benefitsCost": 115.38,
+  "net": 1884.62
+}
+
+
+
+]

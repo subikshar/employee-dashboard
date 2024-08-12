@@ -1,0 +1,17 @@
+[
+{
+  "case" : "null id",
+  "id" :"",
+  "statusCode" :  400
+},
+{
+  "case" : "id# that does not exsist",
+  "id" :"441a7820-52b3-4cd2-b301-703b1c1d1d2a",
+  "statusCode" :  400
+},
+{
+  "case" : "malformed id",
+  "id" :"441a7820-52b3-4cd2-b301-7",
+  "statusCode" :  500
+}
+]
