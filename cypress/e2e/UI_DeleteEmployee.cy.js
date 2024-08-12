@@ -16,20 +16,13 @@ describe('Delete Employee validation', () => {
       
       db.validateTitle() // Validate dashboard title
 
-      //delete if any record present
-      cy.xpath("//table[@id='employeesTable']/tbody/tr[1]/td[1]").then(($ele) => {
-        if($ele.text().includes('No employees found.')){
-
-        }
-        else
-          db.deleteEmployeeAdded()
-      })
+      db.deleteFirstRecord() //delete if record present
 
       db.click_addEmployee() // clcik add employee to enter details
-      db.enterFirstName(data.firstName)
-      db.enterLastName(data.lastName)
-      db.enterDependents(data.dependant)
-      db.clickAdd()
+      db.enterFirstName(data.firstName) //enter first name
+      db.enterLastName(data.lastName)//enter last name
+      db.enterDependents(data.dependant)//enter dependent
+      db.clickAdd()  // clcik add button to add details to the dash board
 
       db.clickDelete() // click delete button
       db.validateDeleteDialog() // valiadate delete dialog box

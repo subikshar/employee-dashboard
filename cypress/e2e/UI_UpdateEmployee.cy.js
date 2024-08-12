@@ -4,7 +4,7 @@ const jsonData = require('../fixtures/UI_updateEmployee.json')
 const jsonData1 = require('../fixtures/UI_updateEmployee_invalid.json')
 
 describe('Update Employee validation', () => {
-  
+  // Update positive scenario validation
   jsonData.forEach((data) => {    
     it(data.case, () => {
       
@@ -15,43 +15,34 @@ describe('Update Employee validation', () => {
       ln.clickOnSignin(data.username, data.passWord);
       
       
-      db.validateTitle()
+      db.validateTitle() // Validate employee dashboard title
+      
+      db.deleteFirstRecord() //delete if record present
 
-      cy.xpath("//table[@id='employeesTable']/tbody/tr[1]/td[1]").then(($ele) => {
-        if($ele.text().includes('No employees found.')){
+      db.click_addEmployee()  // Click add employee button in the dashboard
+      db.enterFirstName(data.firstName)  // Enter employee first Name
+      db.enterLastName(data.lastName)  // Enter employee last Name
+      db.enterDependents(data.dependant) // Enter employee dependent
+      db.clickAdd() // clcik add button to add record
 
-        }
-        else
-          db.deleteEmployeeAdded()
-      })
+      db.clickEdit()  // Click edit button in the added employee record
+      db.enterFirstName(data.newFN) // enter new first name
+      db.enterLastName(data.newLN)  // enter new last name
+      db.enterDependents(data.newDependant)  // enter new dependent
+      db.clickUpdate()  // clcik add button to update the record
 
-      db.click_addEmployee()
-      db.enterFirstName(data.firstName)
-      db.enterLastName(data.lastName)
-      db.enterDependents(data.dependant)
-      db.clickAdd()
-
-      db.clickEdit()
-      db.enterFirstName(data.newFN)
-      db.enterLastName(data.newLN)
-      db.enterDependents(data.newDependant)
-      db.clickUpdate()
-
+      //validate record details changed as per the update
       db.validateEmployeeAdded(data.newFN,data.newLN,data.newDependant.toString(),data.salary.toString()+".00",data.gross.toString()+".00",data.newBenefitsCost.toString(),data.newNet.toString() )
 
-      cy.xpath("//table[@id='employeesTable']/tbody/tr[1]/td[1]").then(($ele) => {
-        if($ele.text().includes('No employees found.')){
-
-        }
-        else
-          db.deleteEmployeeAdded()
+      //Clean up - delete if record present
+      db.deleteFirstRecord()
       })
 
     })
-  })
 
+// update negative scenario validation
   jsonData1.forEach((data) => {    
-    it.only(data.case, () => {
+    it(data.case, () => {
       
       const ln = new loginPage();
       const db = new dashBoardPage();
@@ -60,49 +51,43 @@ describe('Update Employee validation', () => {
       ln.clickOnSignin(data.username, data.passWord);
       
       
-      db.validateTitle()
-      cy.xpath("//table[@id='employeesTable']/tbody/tr[1]/td[1]").then(($ele) => {
-        if($ele.text().includes('No employees found.')){
-
-        }
-        else
-          db.deleteEmployeeAdded()
-      })
+      db.validateTitle()  // Validate employee dashboard title
       
-      db.click_addEmployee()
+      db.deleteFirstRecord() //delete if record present
+      
+      db.click_addEmployee()  // Click add employee button in the dashboard
       
         
-      db.enterFirstName(data.firstName)
-      db.enterLastName(data.lastName)
-      db.enterDependents(data.dependant)
-      db.clickAdd()
+      db.enterFirstName(data.firstName)  // Enter employee first Name
+      db.enterLastName(data.lastName)  // Enter employee last Name
+      db.enterDependents(data.dependant)  // Enter employee dependent
+      db.clickAdd()  // clcik add button to add record
 
-      //update with invalid scenario
-      db.clickEdit()
+      
+      db.clickEdit()  //click edit button to update record
+
       if(data.newFN === null || data.newFN === ""){ 
-        db.clearfirstName()
+        db.clearfirstName() // clear first Name field is input is null or empty
       }else{
-      db.enterFirstName(data.newFN)
+      db.enterFirstName(data.newFN)  // enter new first name
       }
+
       if(data.newLN === null || data.newLN === ""){
-        db.clearLastName() 
+        db.clearLastName()  // clear last Name field is input is null or empty
       }else{
-      db.enterLastName(data.newLN)
+      db.enterLastName(data.newLN)  // enter new last name
       }
+
       if(data.newDependant === null || data.newDependant === ""){
-        db.clearDependent()
+        db.clearDependent()  // clear dependent field is input is null or empty
       }else{
-      db.enterDependents(data.newDependant)
+      db.enterDependents(data.newDependant)  // enter new dependent
       }
-      db.validateUpdateDisabled() 
-      
-      })
-      
 
+      db.validateUpdateDisabled() // validate update button is disabled
       
-
-
     })
   })
-      
+
+})     
 

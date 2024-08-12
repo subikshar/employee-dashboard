@@ -6,7 +6,7 @@ const jsonData1 = require('../fixtures/UI_addEmployee_invalid.json')
 describe('Add Employee validation', () => {
   
   jsonData.forEach((data) => {    
-    it.only(data.case, () => {
+    it(data.case, () => {
       const ln = new loginPage();
       const db = new dashBoardPage();
  
@@ -15,15 +15,10 @@ describe('Add Employee validation', () => {
       ln.clickOnSignin(data.username, data.passWord);
       
       db.validateTitle() // validate title
+
       //delete if any record present
-      cy.xpath("//table[@id='employeesTable']/tbody/tr[1]/td[1]").then(($ele) => {
-        if($ele.text().includes('No employees found.')){
-          
-        }
-        else
-          db.deleteEmployeeAdded()
-      })
-                  
+      db.deleteFirstRecord()
+                       
       db.click_addEmployee() //click add employee to add details
       db.enterFirstName(data.firstName)
       db.enterLastName(data.lastName)
@@ -34,14 +29,9 @@ describe('Add Employee validation', () => {
       //validate added employee
       db.validateEmployeeAdded(data.firstName,data.lastName,data.dependant.toString(),data.salary.toString()+".00",data.gross.toString()+".00",data.benefitsCost.toString(),data.net.toString() )
       
+      
       //delete if any record present
-      cy.xpath("//table[@id='employeesTable']/tbody/tr[1]/td[1]").then(($ele) => {
-          if($ele.text().includes('No employees found.')){
-            
-          }
-          else
-            db.deleteEmployeeAdded()
-        })
+      db.deleteFirstRecord()
       })
 
     })
@@ -56,16 +46,10 @@ describe('Add Employee validation', () => {
       cy.visit('https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/Account/Login')
       ln.clickOnSignin(data.username, data.passWord);
       
-      
       db.validateTitle() // validate title
-      //delete if any record present
-      cy.xpath("//table[@id='employeesTable']/tbody/tr[1]/td[1]").then(($ele) => {
-        if($ele.text().includes('No employees found.')){
 
-        }
-        else
-          db.deleteEmployeeAdded()
-      })
+      //delete if any record present
+      db.deleteFirstRecord()
       
       db.click_addEmployee() //Click add employee to add details
       

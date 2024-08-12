@@ -2,11 +2,9 @@ const jsonData = require('../fixtures/deleteEmployee_valid.json')
 const jsonData1 = require('../fixtures/deleteEmployee_invalid.json')
 
 
-describe("Get Employee validation",() => {
+describe("Delete Employee validation",() => {
     let token = 'VGVzdFVzZXI0MTM6Qy9eNDF1VUBpU0pw'
-    let invalid_token = 'VGVzdFVzZXI0MTM6Qy9eNDF1VUBpU0p2'
-    let id
-    
+    //Positive scenario testing
     jsonData.forEach((testData) => {
         it(testData.case, () => {
             let reqBody = {
@@ -14,7 +12,7 @@ describe("Get Employee validation",() => {
                 "lastName": testData.lastName,
                 "dependants":testData.dependant
             }    
-            cy.request({
+            cy.request({    // add employee details
                 method: 'POST',
                 url:"https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees",
                 headers:{
@@ -25,8 +23,8 @@ describe("Get Employee validation",() => {
             }).then((response) => {
                 expect(response.status).to.eq(200)
                 expect(response.body).has.property('id')
-                id= response.body.id
-                cy.request({
+                id= response.body.id           // parse the id in the response json object
+                cy.request({                   //delete call to delete the record created
                     method: 'DELETE',
                     url:`https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees/${id}`,
                     headers:{
@@ -37,14 +35,14 @@ describe("Get Employee validation",() => {
                     expect(response.status).to.equal(200)
                 })
                 
-                cy.request({
+                cy.request({                    // Get all employee record
                     method: 'GET',
                     url:"https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees",
                     headers:{
                         'Content-Type': 'application/json',
                         'Authorization': 'Basic '+token
                     },
-                }).then((response) => {
+                }).then((response) => {        // validate deleted id is not present in the list
                     expect(response.status).to.equal(200)
                     response.body.forEach(element => {
                         expect(element.id).to.not.equal(id)
@@ -55,6 +53,8 @@ describe("Get Employee validation",() => {
         })
     })
 
+
+    //DELETE request for negative scenarios
     jsonData1.forEach((testData) => {
         it(testData.case, () => {
                     id=testData.id
@@ -65,7 +65,7 @@ describe("Get Employee validation",() => {
                     headers:{
                         'Authorization': 'Basic '+token
                     },
-                }).then((response) => {
+                }).then((response) => {       // Validate the response json status code
                     expect(response.status).to.equal(testData.statusCode)
                     //test
                 })

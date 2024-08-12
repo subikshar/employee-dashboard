@@ -5,7 +5,8 @@ const jsonData3 = require('../fixtures/updateEmployee_invalidId.json')
 describe("Update Employee",() => {
     let token = 'VGVzdFVzZXI0MTM6Qy9eNDF1VUBpU0pw'
     let id;
-    let updateReqBody;
+ 
+    //postive scenario testing for update call
     jsonData1.forEach((data) => {
         it(data.case, () => {
             let addReqBody = {
@@ -14,7 +15,7 @@ describe("Update Employee",() => {
                 "dependants":data.dependant
             }
 
-            cy.request({
+            cy.request({ // Add employee details using POST call
                 method: 'POST',
                 url:"https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees",
                 headers:{
@@ -22,13 +23,13 @@ describe("Update Employee",() => {
                     'Authorization': 'Basic '+token
                 },
                 body: addReqBody
-            }).then((response) => {
+            }).then((response) => {  // Verify employee got added and id generated
                 expect(response.status).to.eq(200)
                 expect(response.body).has.property('id')
                 id= response.body.id
                 return id
                
-            }).then((id) => {
+            }).then((id) => { // Update the added record by using the id in POST response json
                 cy.request({
                     method: 'PUT',
                     url:"https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees",
@@ -42,7 +43,7 @@ describe("Update Employee",() => {
                         "lastName": data.newLN,
                         "dependants": data.newDependant
                     }
-                }).then((response) => {
+                }).then((response) => {  // Validate updating the First Name, Last Name and dependents reflected in the response
                     expect(response.status).to.eq(200)
                     expect(response.body).has.property('partitionKey', data.username)
                     expect(response.body).has.property('sortKey')
@@ -54,10 +55,12 @@ describe("Update Employee",() => {
                     expect(response.body).has.property('salary', data.salary)
                     expect(response.body).has.property('gross', data.gross)
                     expect(response.body).has.property('benefitsCost')
-                    expect(parseFloat(response.body.benefitsCost).toFixed(2)*1).to.equal(data.newBenefitsCost)
+                    expect(parseFloat(response.body.benefitsCost).toFixed(2)*1).to.equal(data.newBenefitsCost) // validate the change in benefit cost when dependent updated
                     expect(response.body).has.property('net')
-                    expect(parseFloat(response.body.net).toFixed(2)*1).to.equal(data.newNet)
+                    expect(parseFloat(response.body.net).toFixed(2)*1).to.equal(data.newNet)// validate the change in net salary when dependent updated
                     
+
+                    //Delete the record created after update
                     cy.request({
                         method: 'DELETE',
                         url:`https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees/${id}`,
@@ -68,28 +71,21 @@ describe("Update Employee",() => {
                     }).then((response) => {
                         expect(response.status).to.equal(200)
                     })
-                })
-
-                    
-
-                
+                })               
             })
-
-            
-            
         })
-
-
     })
 
+
+    // validate negative scenari testing for update
     jsonData2.forEach((data) => {
-        it.only(data.case, () => {
+        it(data.case, () => {
             let reqBody = {
                 "firstName": data.firstName,
                 "lastName": data.lastName,
                 "dependants":data.dependant
             }    
-            cy.request({
+            cy.request({  // Add employee details using POST call
                 method: 'POST',
                 url:"https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees",
                 headers:{
@@ -97,12 +93,12 @@ describe("Update Employee",() => {
                     'Authorization': 'Basic '+token
                 },
                 body: reqBody
-            }).then((response) => {
+            }).then((response) => {   // Verify employee got added and id generated
                 expect(response.status).to.eq(200)
                 expect(response.body).has.property('id')
                 id= response.body.id
                 return id
-            }).then((id) => {
+            }).then((id) => {   //make update call to validate negative scenario testing
                 cy.request({
                     method: 'PUT',
                     url:"https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees",
@@ -117,12 +113,13 @@ describe("Update Employee",() => {
                         "lastName": data.newLN,
                         "dependants": data.newDependant
                     }
-                }).then((response) => {
+                }).then((response) => {   // validate error status code and message generated for negative scenario tetsing
                     expect(response.status).to.eq(data.statusCode)
                     expect(response.body[0]).has.property('memberNames')
                     expect(response.body[0].memberNames[0]).to.equal(data.memberNames)
                     expect(response.body[0]).has.property('errorMessage', data.errorMessage)
                                                             
+                    //delete the record created once validation is complete
                     cy.request({
                         method: 'DELETE',
                         url:`https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees/${id}`,
@@ -139,7 +136,7 @@ describe("Update Employee",() => {
     })
 
 
-
+// validate negative scenario with invalid id
     jsonData3.forEach((data) => {
         it(data.case, () => {
             let reqBody = {
@@ -147,7 +144,7 @@ describe("Update Employee",() => {
                 "lastName": data.lastName,
                 "dependants":data.dependant
             }    
-            cy.request({
+            cy.request({ // Add employee details using POST call
                 method: 'POST',
                 url:"https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees",
                 headers:{
@@ -155,12 +152,12 @@ describe("Update Employee",() => {
                     'Authorization': 'Basic '+token
                 },
                 body: reqBody
-            }).then((response) => {
+            }).then((response) => { // Verify employee got added and id generated
                 expect(response.status).to.eq(200)
                 expect(response.body).has.property('id')
                 id= response.body.id
                 return id
-            }).then((id) => {
+            }).then((id) => {  // validate update with invalid record id
                 cy.request({
                     method: 'PUT',
                     url:"https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees",
@@ -175,12 +172,14 @@ describe("Update Employee",() => {
                         "lastName": data.newLN,
                         "dependants": data.newDependant
                     }
-                }).then((response) => {
+                }).then((response) => {  // validate error response code and status in the response json
                     expect(response.status).to.eq(data.statusCode)
                     expect(response.body[0]).has.property('memberNames')
                     expect(response.body[0].memberNames[0]).to.equal(data.memberNames)
                     expect(response.body[0]).has.property('errorMessage', data.errorMessage)
-                                                            
+                            
+                    
+                    //cleanup (delete record after validation is complete)
                     cy.request({
                         method: 'DELETE',
                         url:`https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees/${id}`,

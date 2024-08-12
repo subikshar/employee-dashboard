@@ -4,7 +4,6 @@ const jsonData1 = require('../fixtures/getEmployee_invalid.json')
 
 describe("Get Employee validation",() => {
     let token = 'VGVzdFVzZXI0MTM6Qy9eNDF1VUBpU0pw'
-    let invalid_token = 'VGVzdFVzZXI0MTM6Qy9eNDF1VUBpU0p2'
     let id
     
     jsonData.forEach((testData) => {
@@ -14,7 +13,7 @@ describe("Get Employee validation",() => {
                 "lastName": testData.lastName,
                 "dependants":testData.dependant
             }    
-            cy.request({
+            cy.request({  //Request to add employee details
                 method: 'POST',
                 url:"https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees",
                 headers:{
@@ -23,9 +22,9 @@ describe("Get Employee validation",() => {
                 },
                 body: reqBody
             }).then((response) => {
-                expect(response.status).to.eq(200)
-                expect(response.body).has.property('id')
-                id= response.body.id
+                expect(response.status).to.eq(200)// validate the response code
+                expect(response.body).has.property('id')  
+                id= response.body.id               // get the id of record created to pass it as query parameter for Get employee call
                 cy.request({
                     method: 'GET',
                     url:`https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees/${id}`,
@@ -33,7 +32,7 @@ describe("Get Employee validation",() => {
                         'Content-Type': 'application/json',
                         'Authorization': 'Basic '+token
                     },
-                }).then((response) => {
+                }).then((response) => {               // Validate the response json object of get employee
                     expect(response.status).to.equal(200)
                     expect(response.body).has.property('partitionKey', testData.username)
                     expect(response.body).has.property('sortKey')
@@ -50,7 +49,7 @@ describe("Get Employee validation",() => {
                     expect(parseFloat(response.body.net).toFixed(2)*1).to.equal(testData.net)
                 })
                 
-                cy.request({
+                cy.request({                       // delete the record created
                     method: 'DELETE',
                     url:`https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees/${id}`,
                     headers:{
@@ -64,7 +63,7 @@ describe("Get Employee validation",() => {
             })
         })
     })
-
+//Get Employee negative scenario tetsing
     jsonData1.forEach((testData) => {
         it(testData.case, () => {
                     id=testData.id
@@ -76,7 +75,7 @@ describe("Get Employee validation",() => {
                         'Content-Type': 'application/json',
                         'Authorization': 'Basic '+token
                     },
-                }).then((response) => {
+                }).then((response) => { // validate the error response code for negative scenario tetsing
                     expect(response.status).to.equal(testData.statusCode)
                     
                 })

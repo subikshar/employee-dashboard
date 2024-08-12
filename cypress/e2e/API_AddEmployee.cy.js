@@ -11,7 +11,7 @@ describe("Add Employee",() => {
                 "lastName": testData.lastName,
                 "dependants":testData.dependant
             }    
-            cy.request({
+            cy.request({ // POST request to add employee details
                 method: 'POST',
                 url:"https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees",
                 headers:{
@@ -19,7 +19,7 @@ describe("Add Employee",() => {
                     'Authorization': 'Basic '+token
                 },
                 body: reqBody
-            }).then((response) => {
+            }).then((response) => {  // validate each json object in the response
                 expect(response.status).to.eq(200)
                 expect(response.body).has.property('partitionKey', testData.username)
                 expect(response.body).has.property('sortKey')
@@ -39,13 +39,13 @@ describe("Add Employee",() => {
                 
             })
 
-            cy.request({
+            cy.request({   //Get the added employee details
                 method: 'GET',
                 url:"https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees",
                 headers:{
                     'Authorization': 'Basic '+token
                 }
-                }).then((response) => {
+                }).then((response) => {  //validate each json object in the response
                     expect(response.status).to.eq(200)
                     response.body.forEach(element  => {
                         if(element.id == id) {
@@ -64,7 +64,7 @@ describe("Add Employee",() => {
                         }
                     })
 
-                    cy.request({
+                    cy.request({  //delete the record created
                         method: 'DELETE',
                         url:`https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees/${id}`,
                         headers:{
@@ -77,15 +77,15 @@ describe("Add Employee",() => {
                 })
         })
     })
-
+//Add employees for negative scenario testing
     jsonData1.forEach((testData) => {
-        it.only(testData.case, () => {
+        it(testData.case, () => {
             let reqBody = {
                 "firstName": testData.firstName,
                 "lastName": testData.lastName,
                 "dependants":testData.dependant
             }    
-            cy.request({
+            cy.request({ //try to add employee details by giving invalid data
                 method: 'POST',
                 url:"https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees",
                 failOnStatusCode: false,
@@ -94,7 +94,7 @@ describe("Add Employee",() => {
                     'Authorization': 'Basic '+token
                 },
                 body: reqBody
-            }).then((response) => {
+            }).then((response) => {  // validate the response status code and error message
                 expect(response.status).to.eq(testData.statusCode)
                 expect(response.body[0]).has.property('memberNames')
                 expect(response.body[0].memberNames[0]).to.equal(testData.memberNames)

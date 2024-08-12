@@ -1,7 +1,8 @@
 describe("Get Employee validation",() => {
     let token = 'VGVzdFVzZXI0MTM6Qy9eNDF1VUBpU0pw'
     let invalid_token = 'VGVzdFVzZXI0MTM6Qy9eNDF1VUBpU0p2'
-    it("with valid token", () => {
+    //positive scenario tetsing by passing valid token in the header
+    it("with valid token", () => { 
         cy.request({
             method: 'GET',
             url:"https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees",
@@ -13,6 +14,7 @@ describe("Get Employee validation",() => {
             })
     })
 
+    //negative scenario tetsing by passing invalid token in the header
     it("with invalid token", () => {
         cy.request({
             method: 'GET',

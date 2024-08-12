@@ -17,106 +17,117 @@ class dashBoardPage{
         dbg_delete_title: () => cy.xpath("//main/div[3]/div/div/div/h5"),
         dbg_delte_msg: () => cy.xpath("//main/div[3]/div/div/div[2]/div/div"),
         dbg_delete_deletebtn: () => cy.xpath("//main/div[3]/div/div/div[3]/button[1]"),
-        dbg_delete_cancelbtn: () => cy.xpath("//main/div[3]/div/div/div[3]/button[2]")
+        dbg_delete_cancelbtn: () => cy.xpath("//main/div[3]/div/div/div[3]/button[2]"),
+        emp_table_firstCell: () => cy.xpath("//table[@id='employeesTable']/tbody/tr[1]/td[1]")
     }
 
+    //validate employee dash board title
     validateTitle(){
         this.elements.title_dashBoard().then((x) =>{
             expect(x.text()).to.equal("Paylocity Benefits Dashboard")
         })
     }
 
+    //validate employee added details
     validateEmployeeAdded(firstName, lastName, dependant, salary, grossPay, benefitsCost, netPay){
         
        
-       cy.xpath("//table[@id='employeesTable']/tbody/tr[1]/td[2]").contains(firstName)
-       cy.xpath("//table[@id='employeesTable']/tbody/tr[1]/td[3]").contains(lastName)
-       cy.xpath("//table[@id='employeesTable']/tbody/tr[1]/td[4]").contains(dependant)
-       cy.xpath("//table[@id='employeesTable']/tbody/tr[1]/td[5]").contains(salary)
-       cy.xpath("//table[@id='employeesTable']/tbody/tr[1]/td[6]").contains(grossPay)
-       cy.xpath("//table[@id='employeesTable']/tbody/tr[1]/td[7]").contains(benefitsCost)
-       cy.xpath("//table[@id='employeesTable']/tbody/tr[1]/td[8]").contains(netPay)
+       cy.xpath("//table[@id='employeesTable']/tbody/tr[1]/td[2]").contains(firstName) // Validate first name added
+       cy.xpath("//table[@id='employeesTable']/tbody/tr[1]/td[3]").contains(lastName)  // Validate last name added
+       cy.xpath("//table[@id='employeesTable']/tbody/tr[1]/td[4]").contains(dependant)  // Validate dependent added
+       cy.xpath("//table[@id='employeesTable']/tbody/tr[1]/td[5]").contains(salary)  // Validate salary added
+       cy.xpath("//table[@id='employeesTable']/tbody/tr[1]/td[6]").contains(grossPay)  // Validate gross pay added
+       cy.xpath("//table[@id='employeesTable']/tbody/tr[1]/td[7]").contains(benefitsCost)  // Validate benefit cost added
+       cy.xpath("//table[@id='employeesTable']/tbody/tr[1]/td[8]").contains(netPay)  // Validate net pay added
               
     }
 
+    //delete first record in the employee dahboard table
     deleteEmployeeAdded()
     {
-        cy.xpath("//table[@id='employeesTable']/tbody/tr[1]/td[9]/i[2]").click()
+        cy.xpath("//table[@id='employeesTable']/tbody/tr[1]/td[9]/i[2]").click()  // click delete button in the employee dashboard record list 
         cy.wait(1000)
-        this.elements.dbg_button_delete().click()
+        this.elements.dbg_button_delete().click() // clcik delete button in the delete dialog
         
     }
 
+    // clcik add employee button in employee dash board
     click_addEmployee(){
         this.elements.btn_addEmployee().scrollIntoView({duration:2000}).click()
     }
 
+    //enter first name in add employee dialog
     enterFirstName(firstName){
         this.elements.dgb_txt_firstName().clear()
         this.elements.dgb_txt_firstName().type(firstName)
         
     }
 
+    //enter last name in add employee dialog
     enterLastName(lastName){
         this.elements.dgb_txt_lastName().clear()
         this.elements.dgb_txt_lastName().type(lastName)
           
     }
 
+    //enter dependent in add employee dialog
     enterDependents(dependents){
         this.elements.dgb_txt_dependents().clear()
         this.elements.dgb_txt_dependents().type(dependents)
         
     }
 
+    //clcik add button in add employee dialog
     clickAdd(){
 
         this.elements.dgb_button_add().click()
         cy.wait(2000)
-        /*this.elements.dgb_button_add().should('be.visible')
-        this.elements.dgb_button_add().trigger("click")
-
-        //invalid scenarios where it will close the dialog box
-        this.elements.dgb_title_addEmpTitle().then(($ele) => {
-            if($ele.text().includes('Add Employee')){
-                this.elements.dgb_button_close().click()
-                cy.xpath("//table[@id='employeesTable']/tbody/tr[1]/td[1]").contains('No employees found.')
-            }
-            
-        })*/
+        
     }
 
+    //clcik edit button in employee dashboard
     clickEdit(){
         this.elements.btn_edit().click()
     }
 
+    //clcik delete button in employee dashboard
     clickDelete(){
         this.elements.btn_delete().click()
     }
 
+    //clcik update button in update dialog box
     clickUpdate(){
         this.elements.dbg_button_update().click()
         cy.wait(2000)
 
     }
 
+    //validate update button is disabled
     validateUpdateDisabled(){
         this.elements.dbg_button_update().should('be.disabled')
     }
 
+    //validate Add button is disabled
     validateAddDisabled(){
         this.elements.dgb_button_add().should('be.disabled')
     }
 
+    //clear first name field in update dialog box
     clearfirstName(){
         this.elements.dgb_txt_firstName().clear()
     }
+
+    //clear last name field in update dialog box
     clearLastName(){
         this.elements.dgb_txt_lastName().clear()
     }
+
+    //clear dependent field in update dialog box
     clearDependent(){
         this.elements.dgb_txt_dependents().clear()
     }
+
+    //Validate elements in delete dialog box
     validateDeleteDialog(){
         this.elements.dbg_delete_title().contains('Delete Employee')
         this.elements.dbg_delte_msg().contains('Delete employee record for')
@@ -125,18 +136,33 @@ class dashBoardPage{
 
     }
 
+    //Clcik delete button in delete dialog box
     clickDBGDelete(){
         this.elements.dbg_delete_deletebtn().click()
         cy.xpath("//table[@id='employeesTable']/tbody/tr[1]/td[1]").then(($ele) => {
-            expect($ele.text().length).to.equal(16)
+            expect($ele.text().length).to.equal(16) // validate record is deleted(No  Records Presnet)
         }) 
     }
 
+    //Clcik Cancel button in delete dialog box
     clickDBGDeleteCancel(){
         this.elements.dbg_delete_cancelbtn().click()
         cy.xpath("//table[@id='employeesTable']/tbody/tr[1]/td[1]").then(($ele) => {
-            expect($ele.text().length).greaterThan(16)
+            expect($ele.text().length).greaterThan(16) // validate record is present
         })       
+    }
+
+    //called for cleaning up record once validation is complete
+    deleteFirstRecord(){
+        this.elements.emp_table_firstCell().then(($ele) => {
+            if($ele.text().includes('No employees found.')){
+              
+            }
+            else{
+              this.deleteEmployeeAdded()
+              this.deleteFirstRecord()
+            }
+          })
     }
 }
 
