@@ -45,9 +45,11 @@ class dashBoardPage{
     //delete first record in the employee dahboard table
     deleteEmployeeAdded()
     {
-        cy.xpath("//table[@id='employeesTable']/tbody/tr[1]/td[9]/i[2]").click()  // click delete button in the employee dashboard record list 
-        cy.wait(1000)
+        cy.xpath("//table[@id='employeesTable']/tbody/tr[1]/td[9]/i[2]").should('be.visible')
+        cy.xpath("//table[@id='employeesTable']/tbody/tr[1]/td[9]/i[2]").click({force: true})  // click delete button in the employee dashboard record list 
+        cy.wait(2000)
         this.elements.dbg_button_delete().click() // clcik delete button in the delete dialog
+        cy.wait(2000)
         
     }
 

@@ -4,6 +4,7 @@ const jsonData1 = require('../fixtures/deleteEmployee_invalid.json')
 
 describe("Delete Employee validation",() => {
     let token = 'VGVzdFVzZXI0MTM6Qy9eNDF1VUBpU0pw'
+    let id
     //Positive scenario testing
     jsonData.forEach((testData) => {
         it(testData.case, () => {
