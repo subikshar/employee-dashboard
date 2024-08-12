@@ -16,6 +16,7 @@ describe('Update Employee validation', () => {
       
       
       db.validateTitle() // Validate employee dashboard title
+      db.validateColumnHeading()  //validate table column heading
       
       db.deleteFirstRecord() //delete if record present
 
@@ -52,6 +53,7 @@ describe('Update Employee validation', () => {
       
       
       db.validateTitle()  // Validate employee dashboard title
+      db.validateColumnHeading()  //validate table column heading
       
       db.deleteFirstRecord() //delete if record present
       

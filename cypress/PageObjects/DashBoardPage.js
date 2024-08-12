@@ -18,7 +18,17 @@ class dashBoardPage{
         dbg_delte_msg: () => cy.xpath("//main/div[3]/div/div/div[2]/div/div"),
         dbg_delete_deletebtn: () => cy.xpath("//main/div[3]/div/div/div[3]/button[1]"),
         dbg_delete_cancelbtn: () => cy.xpath("//main/div[3]/div/div/div[3]/button[2]"),
-        emp_table_firstCell: () => cy.xpath("//table[@id='employeesTable']/tbody/tr[1]/td[1]")
+        emp_table_firstCell: () => cy.xpath("//table[@id='employeesTable']/tbody/tr[1]/td[1]"),
+        emp_table_idHeading: () => cy.xpath("//table[@id='employeesTable']/thead/tr[1]/th[1]"),
+        emp_table_FNHeading: () => cy.xpath("//table[@id='employeesTable']/thead/tr[1]/th[2]"),
+        emp_table_LNHeading: () => cy.xpath("//table[@id='employeesTable']/thead/tr[1]/th[3]"),
+        emp_table_depHeading: () => cy.xpath("//table[@id='employeesTable']/thead/tr[1]/th[4]"),
+        emp_table_salHeading: () => cy.xpath("//table[@id='employeesTable']/thead/tr[1]/th[5]"),
+        emp_table_grossHeading: () => cy.xpath("//table[@id='employeesTable']/thead/tr[1]/th[6]"),
+        emp_table_benHeading: () => cy.xpath("//table[@id='employeesTable']/thead/tr[1]/th[7]"),
+        emp_table_netHeading: () => cy.xpath("//table[@id='employeesTable']/thead/tr[1]/th[8]"),
+        emp_table_actionsHeading: () => cy.xpath("//table[@id='employeesTable']/thead/tr[1]/th[9]"),
+        link_logOut: () => cy.xpath("//a[text()='Log Out']")
     }
 
     //validate employee dash board title
@@ -27,6 +37,24 @@ class dashBoardPage{
             expect(x.text()).to.equal("Paylocity Benefits Dashboard")
         })
     }
+
+    //validate employee dashboard table column heading
+    validateColumnHeading(){
+        this.elements.emp_table_idHeading().should('be.visible')
+        this.elements.emp_table_FNHeading().should('be.visible')
+        this.elements.emp_table_LNHeading().should('be.visible')
+        this.elements.emp_table_depHeading().should('be.visible')
+        this.elements.emp_table_salHeading().should('be.visible')
+        this.elements.emp_table_grossHeading().should('be.visible')
+        this.elements.emp_table_benHeading().should('be.visible')
+        this.elements.emp_table_netHeading().should('be.visible')
+        this.elements.emp_table_actionsHeading().should('be.visible')
+    }
+
+    validateLogOut(){
+
+    }
+
 
     //validate employee added details
     validateEmployeeAdded(firstName, lastName, dependant, salary, grossPay, benefitsCost, netPay){

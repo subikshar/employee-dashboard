@@ -15,6 +15,7 @@ describe('Add Employee validation', () => {
       ln.clickOnSignin(data.username, data.passWord);
       
       db.validateTitle() // validate title
+      db.validateColumnHeading()  //validate table column heading
 
       //delete if any record present
       db.deleteFirstRecord()
@@ -47,6 +48,7 @@ describe('Add Employee validation', () => {
       ln.clickOnSignin(data.username, data.passWord);
       
       db.validateTitle() // validate title
+      db.validateColumnHeading()  //validate table column heading
 
       //delete if any record present
       db.deleteFirstRecord()

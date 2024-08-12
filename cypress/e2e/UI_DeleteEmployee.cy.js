@@ -15,6 +15,7 @@ describe('Delete Employee validation', () => {
       
       
       db.validateTitle() // Validate dashboard title
+      db.validateColumnHeading()  //validate table column heading
 
       db.deleteFirstRecord() //delete if record present
 
